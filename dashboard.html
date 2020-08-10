@@ -48,7 +48,7 @@
         <script>
             function pictureChange(path) {
                 console.log(path);
-                document.getElementById("theImage").src=path;
+                document.getElementById("map").src=path;
             }
         </script>
 
@@ -68,15 +68,9 @@
     <body class="text-center" onload="incrementCount(10)">
 
         <header class="container-fluid" style="margin-top: 5px">
-            
-            <img src="dashboard-images/uta-logo-v1.png" class="rounded float-left im">
-            <img src="dashboard-images/itlab-logo-v1.png" class="rounded float-right img-height-auto">
-            <img src="dashboard-images/banner-v1.png" class="rounded mx-auto d-block img-height-auto">  
-            <!-- <img src="dashboard-images/header_whole.png" usemap="#headerMap" style="width: 100%">
-            <map name="headerMap">
-                <area shape="rect" coords="0,0,80,80" href="http://www.yoursite.com/link1.html" class="bg-dark">
-                <area shape="rect" coords="1000, 0, 1080, 80" href="http://www.yoursite.com/link2.html" class="bg-dark"> -->
-            </map> 
+            <a href="https://www.uta.edu"><img src="dashboard-images/uta-logo-v1.png" class="rounded float-left"></a>
+            <a href="https://itlab.uta.edu"><img src="dashboard-images/itlab-logo-v1.png" class="rounded float-right img-height-auto"></a>
+            <img src="dashboard-images/banner-v1.png" class="rounded mx-auto d-block img-height-auto">
             <hr class="" color="black" style="height: 5px;"/>
         </header>
 
@@ -84,32 +78,36 @@
             <div class=" container-fluid ">
                 <div class="card-deck bg-secondary p-3">
                     <!--Convert to a form to send to javascript-->
-                    <!-- <div class="card bd-secondary">
-                        <div class="input-group text-center">
-                            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                              <option selected>Choose Region...</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>  
+                    <!-- <form name="myForm" action="/action_page.php" onsubmit="pictureChange()" method="post"> -->
+                        <div class="card bg-secondary">
+                            <button class="btn btn-light" disabled>US-Mainland</button>
+                        </div> 
+                        <div class="card bg-secondary">
+                            <div class="input-group text-center">
+                                <select class="custom-select" id="timePeriod" aria-label="Example select with button addon" name="timePeriod">
+                                <option selected>Choose a 14-Day Period...</option>
+                                <button onclick="pictureChange('dashboard-images/US-Mainland/P12.png')"><option value="12">Latest: Snapshot 12</option></button>
+                                <option value="11">Snapshot 11</option>
+                                <option value="10">Snapshot 10</option>
+                                <option value="9">Snapshot 9</option>
+                                <option value="8">Snapshot 8</option>
+                                <option value="7">Snapshot 7</option>
+                                <option value="6">Snapshot 6</option>
+                                <option value="5">Snapshot 5</option>
+                                <option value="4">Snapshot 4</option>
+                                <option value="3">Snapshot 3</option>
+                                <option value="2">Snapshot 2</option>
+                                <option value="1">Oldest: Snapshot 1</option>
+                                </select>  
+                            </div> 
                         </div>
-                    </div>  -->
-                    <div class="card bg-secondary">
-                        <div class="input-group text-center">
-                            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                              <option selected>Choose a 14-Day Period...</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>  
-                        </div>
-                    </div> 
-                    <button class="btn btn-dark" onclick="document.getElementById('myImage').src='pic_bulboff.gif'">Preview</button>
+                        <input class="btn btn-light" type="submit" onclick="pictureChange('dashboard-images/US-Mainland/P12.png')" value="Submit">
+                    <!-- </form> -->
                 </div>
             </div>
             <br/>
             <div class="" style="width: 100%;">
-                <img src="dashboard-images/US-Mainland/Map.png" style="width: 100%;">
+                <img id='map' src="dashboard-images/US-Mainland/Map.png" style="width: 100%;">
             </div>
             <br/>
             <div class="container-fluid border border-dark p-2">
@@ -135,7 +133,6 @@
             <p class="float-left text-light">People Involved</p>
             <p class="float-right text-light">Copyright Information</p>
             <br/>
-           
         </div>
     </body>
 </html>
