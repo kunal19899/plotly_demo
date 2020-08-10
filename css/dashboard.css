@@ -1,0 +1,35 @@
+.img-height-auto{
+    height: auto;
+}
+
+body{
+    background: url('../dashboard-images/background-v1.png') no-repeat center center fixed;;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body, html{
+    height: 100%;
+    margin: 0;
+
+}
+
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+
+.bg-dark_blue{
+    background-color: darkblue;
+}
+
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}

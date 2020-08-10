@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Jekyll v4.1.1">
+        <title> COVID-19 Dashboard </title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/cover/">
+
+        <!-- Bootstrap core CSS -->
+        <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+            <!-- Favicons -->
+        <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+        <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+        <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+        <link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+        <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+        <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+        <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+        <meta name="theme-color" content="#563d7c">
+
+
+        <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+            }
+        }
+        .img-height-auto{
+    height: auto;
+}
+
+        </style>
+
+        <script>
+            function pictureChange(path) {
+                console.log(path);
+                document.getElementById("theImage").src=path;
+            }
+        </script>
+
+        <!-- Custom styles for this template -->
+        <link href="cover.css" rel="stylesheet">
+        <link href="css/dashboard.css" rel="stylesheet">
+
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+   
+    </head>
+    <body class="text-center" onload="incrementCount(10)">
+
+        <header class="container-fluid" style="margin-top: 5px">
+            
+            <img src="dashboard-images/uta-logo-v1.png" class="rounded float-left im">
+            <img src="dashboard-images/itlab-logo-v1.png" class="rounded float-right img-height-auto">
+            <img src="dashboard-images/banner-v1.png" class="rounded mx-auto d-block img-height-auto">  
+            <!-- <img src="dashboard-images/header_whole.png" usemap="#headerMap" style="width: 100%">
+            <map name="headerMap">
+                <area shape="rect" coords="0,0,80,80" href="http://www.yoursite.com/link1.html" class="bg-dark">
+                <area shape="rect" coords="1000, 0, 1080, 80" href="http://www.yoursite.com/link2.html" class="bg-dark"> -->
+            </map> 
+            <hr class="" color="black" style="height: 5px;"/>
+        </header>
+
+        <main class="container-fluid">
+            <div class=" container-fluid ">
+                <div class="card-deck bg-secondary p-3">
+                    <!--Convert to a form to send to javascript-->
+                    <!-- <div class="card bd-secondary">
+                        <div class="input-group text-center">
+                            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                              <option selected>Choose Region...</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>  
+                        </div>
+                    </div>  -->
+                    <div class="card bg-secondary">
+                        <div class="input-group text-center">
+                            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                              <option selected>Choose a 14-Day Period...</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>  
+                        </div>
+                    </div> 
+                    <button class="btn btn-dark" onclick="document.getElementById('myImage').src='pic_bulboff.gif'">Preview</button>
+                </div>
+            </div>
+            <br/>
+            <div class="" style="width: 100%;">
+                <img src="dashboard-images/US-Mainland/Map.png" style="width: 100%;">
+            </div>
+            <br/>
+            <div class="container-fluid border border-dark p-2">
+                <p class="">Space for additional information</p>
+            </div>
+            <br/>
+            <div class="container-fluid">
+                <div class='text-left'>
+                    <img src="dashboard-images/datasource-census-logo.png">
+                    <img src="dashboard-images/datasource-harvard-v1.png">
+                    <img src="dashboard-images/source-nytime-logo-v1.png">
+                    <img src="dashboard-images/nsf-logo-v1.png">
+                </div>
+                <div class="float-right">
+                    <div class="main_container" id="id_main_container">
+                        <div class="container_inner" id="display_div_id"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <hr class="" color="black" style="height: 5px; margin-bottom: 0;"/>
+        <div class="bg-dark_blue p-2 container-fluid">
+            <p class="float-left text-light">People Involved</p>
+            <p class="float-right text-light">Copyright Information</p>
+            <br/>
+           
+        </div>
+    </body>
+</html>
