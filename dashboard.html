@@ -40,13 +40,21 @@
             }
         }
         .img-height-auto{
-    height: auto;
-}
+            height: auto;
+        }
 
         </style>
 
         <script>
-            function pictureChange(path) {
+            function pictureChange(value) {
+                // var timePeriod = document.getElementById('timePeriod');
+                // var selectedValue = select
+                if (value == 0){
+                    path = "dashboard-images/US-Mainland/Map.png";
+                }
+                else{
+                    path = "dashboard-images/US-Mainland/P" + value + ".png";
+                }
                 console.log(path);
                 document.getElementById("map").src=path;
             }
@@ -69,7 +77,7 @@
 
         <header class="container-fluid" style="margin-top: 5px">
             <a href="https://www.uta.edu"><img src="dashboard-images/uta-logo-v1.png" class="rounded float-left"></a>
-            <a href="https://itlab.uta.edu"><img src="dashboard-images/itlab-logo-v1.png" class="rounded float-right img-height-auto"></a>
+            <a href="https://itlab.uta.edu"><img src="dashboard-images/itlab-logo-v1.png" class="rounded float-right"></a>
             <img src="dashboard-images/banner-v1.png" class="rounded mx-auto d-block img-height-auto">
             <hr class="" color="black" style="height: 5px;"/>
         </header>
@@ -84,24 +92,24 @@
                         </div> 
                         <div class="card bg-secondary">
                             <div class="input-group text-center">
-                                <select class="custom-select" id="timePeriod" aria-label="Example select with button addon" name="timePeriod">
-                                <option selected>Choose a 14-Day Period...</option>
-                                <button onclick="pictureChange('dashboard-images/US-Mainland/P12.png')"><option value="12">Latest: Snapshot 12</option></button>
-                                <option value="11">Snapshot 11</option>
-                                <option value="10">Snapshot 10</option>
-                                <option value="9">Snapshot 9</option>
-                                <option value="8">Snapshot 8</option>
-                                <option value="7">Snapshot 7</option>
-                                <option value="6">Snapshot 6</option>
-                                <option value="5">Snapshot 5</option>
-                                <option value="4">Snapshot 4</option>
-                                <option value="3">Snapshot 3</option>
-                                <option value="2">Snapshot 2</option>
-                                <option value="1">Oldest: Snapshot 1</option>
+                                <select class="custom-select" id="timePeriod" aria-label="Example select with button addon" name="timePeriod" onchange="pictureChange(value);">
+                                    <option value="0" selected>Choose a 14-Day Period...</option>
+                                    <option value="12">Latest: Snapshot 12</option>
+                                    <option value="11">Snapshot 11</option>
+                                    <option value="10">Snapshot 10</option>
+                                    <option value="9">Snapshot 9</option>
+                                    <option value="8">Snapshot 8</option>
+                                    <option value="7">Snapshot 7</option>
+                                    <option value="6">Snapshot 6</option>
+                                    <option value="5">Snapshot 5</option>
+                                    <option value="4">Snapshot 4</option>
+                                    <option value="3">Snapshot 3</option>
+                                    <option value="2">Snapshot 2</option>
+                                    <option value="1">Oldest: Snapshot 1</option>
                                 </select>  
                             </div> 
                         </div>
-                        <input class="btn btn-light" type="submit" onclick="pictureChange('dashboard-images/US-Mainland/P12.png')" value="Submit">
+                        <!-- <input class="btn btn-light" type="submit" value="Submit"> -->
                     <!-- </form> -->
                 </div>
             </div>
