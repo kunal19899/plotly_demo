@@ -47,8 +47,6 @@
 
         <script>
             function pictureChange(value) {
-                // var timePeriod = document.getElementById('timePeriod');
-                // var selectedValue = select
                 if (value == 0){
                     path = "dashboard-images/US-Mainland/Map.png";
                 }
@@ -57,6 +55,35 @@
                 }
                 console.log(path);
                 document.getElementById("map").src=path;
+            }
+
+            function dateChange(value){
+                var dates = [
+                    ['Choose a Date...', 'Choose a Date...'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                    ['March 3, 2020', 'March 17, 2020'],
+                ]
+
+                document.getElementById('startDate').innerHTML = dates[value][0]
+                document.getElementById('endDate').innerHTML = dates[value][1]
+            }
+
+            function displayGrid() {
+                document.getElementById("over-image").src="dashboard-images/US-Mainland/Map.png";
+            }
+
+            function resetImage() {
+                document.getElementById("over-image").src="dashboard-images/US-Mainland/empty.png";
             }
         </script>
 
@@ -76,23 +103,28 @@
     <body class="text-center" onload="incrementCount(10)">
 
         <header class="container-fluid" style="margin-top: 5px">
-            <a href="https://www.uta.edu"><img src="dashboard-images/uta-logo-v1.png" class="rounded float-left"></a>
-            <a href="https://itlab.uta.edu"><img src="dashboard-images/itlab-logo-v1.png" class="rounded float-right"></a>
-            <img src="dashboard-images/banner-v1.png" class="rounded mx-auto d-block img-height-auto">
+            <a href="https://www.uta.edu"><img id="uta_logo" src="dashboard-images/uta-logo-v1.png" class="rounded float-left"></a>
+            <a href="http://itlab.uta.edu/index.html"><img id="itlab_logo" src="dashboard-images/itlab-logo-v1.png" class="rounded float-right"></a>
+            <img id="center" src="dashboard-images/banner-v1.png" class="rounded mx-auto d-block img-height-auto">
             <hr class="" color="black" style="height: 5px;"/>
         </header>
 
         <main class="container-fluid">
             <div class=" container-fluid ">
                 <div class="card-deck bg-secondary p-3">
-                    <!--Convert to a form to send to javascript-->
-                    <!-- <form name="myForm" action="/action_page.php" onsubmit="pictureChange()" method="post"> -->
                         <div class="card bg-secondary">
                             <button class="btn btn-light" disabled>US-Mainland</button>
                         </div> 
                         <div class="card bg-secondary">
+                            <div id="startDate" class="btn btn-light">Choose a Date...</div>
+                        </div> 
+                        <p>to</p>
+                        <div class="card bg-secondary">
+                            <div id="endDate" class="btn btn-light">Choose a Date...</div>
+                        </div> 
+                        <div class="card bg-secondary">
                             <div class="input-group text-center">
-                                <select class="custom-select" id="timePeriod" aria-label="Example select with button addon" name="timePeriod" onchange="pictureChange(value);">
+                                <select class="custom-select" id="timePeriod" aria-label="Example select with button addon" name="timePeriod" onchange="pictureChange(value); dateChange(value);">
                                     <option value="0" selected>Choose a 14-Day Period...</option>
                                     <option value="12">Latest: Snapshot 12</option>
                                     <option value="11">Snapshot 11</option>
@@ -109,16 +141,16 @@
                                 </select>  
                             </div> 
                         </div>
-                        <!-- <input class="btn btn-light" type="submit" value="Submit"> -->
-                    <!-- </form> -->
+                        <button class="btn btn-light" onmousedown="displayGrid();" onmouseup="resetImage();" onmouseleave="resetImage();">Display States</button>
                 </div>
             </div>
             <br/>
-            <div class="" style="width: 100%;">
+            <div class="bg-map-img" style="width: 100%; position: relative;">
+                <img id="over-image" src="dashboard-images/US-Mainland/empty.png" style="width: 100%; position: absolute;">
                 <img id='map' src="dashboard-images/US-Mainland/Map.png" style="width: 100%;">
             </div>
             <br/>
-            <div class="container-fluid border border-dark p-2">
+            <div class="container-fluid border border-dark p-2" style="overflow-y:scroll;">
                 <p class="">Space for additional information</p>
             </div>
             <br/>

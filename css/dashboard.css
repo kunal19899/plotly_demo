@@ -33,3 +33,21 @@ body, html{
 .alignright {
 	float: right;
 }
+
+@media only screen and (max-width: 1200px){
+  #uta_logo{
+    width: 7%;
+  }
+
+  #itlab_logo{
+    width: 10%;
+  }
+
+  #center{
+    width: 80%;
+  }
+}
+
+.bg-map-img{
+  /* background-image: url('dashboard-images/US-Mainland/Map.png'); */
+}
