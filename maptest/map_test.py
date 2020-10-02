@@ -1,0 +1,36 @@
+import plotly.io as pio
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+from urllib.request import urlopen
+import json
+with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
+    counties = json.load(response)
+
+df = pd.read_csv("./cases/Cases-4-7-20vs4-8-20-intDays7/ALL-CommID-Cases-4-7-20vs4-8-20-intDays7.csv",
+                    dtype={"fips": str}, encoding='latin-1')
+
+fig = px.choropleth(df, geojson=counties, locations='fips', color='CommunityID',
+                           color_continuous_scale=px.colors.diverging.RdYlGn[::-1],
+                           range_color=(0, 7),
+                           scope="usa",
+                           labels={'State':'State',
+                                   'Area_Name':'County',
+                                   'DensityPerSquaremileOfLandarea-Population':'Pop. Density per Square Mile of Land Area',
+                                   'Median_Household_Income_2018':'Median Household Income in 2018',
+                                   'Percent_of_adults_with_a_high_school_diploma_only_2014-18':'% Adult with High School Diplomas'}, 
+                           hover_data=["Area_Name", "DensityPerSquaremileOfLandarea-Population", 
+                                         "Median_Household_Income_2018", 
+                                         "Percent_of_adults_with_a_high_school_diploma_only_2014-18"] 
+                          )
+
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0},
+                     coloraxis_colorbar=dict( title = "Percentage Change in the Number of New Cases",
+                     ticks = 'inside',
+                     tickvals = [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                     ticktext=['[-100%]', '(-100%, -50%]', '(-50%,0%)', '[0%]', '(0%, 50%]', '(50%, 100%]', '(100%, 200%]', 'More than 200%']))
+fig.show()
+
+
+pio.write_html(fig, file='map.html', auto_open=False)
