@@ -43,7 +43,9 @@ fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0},
                      coloraxis_colorbar=dict( title = "Percentage Change in the Number of New Cases",
                      ticks = 'inside',
                      tickvals = [0, 1, 2, 3, 4, 5, 6, 7, 8],
-                     ticktext=['[-100%]', '(-100%, -50%]', '(-50%,0%)', '[0%]', '(0%, 50%]', '(50%, 100%]', '(100%, 200%]', 'More than 200%']))
+                     ticktext=['Drop of Greater than 100%', 'Drop between 50% to 100%', 'Drop between 0% to 50%',
+                                'No Change', 'Rise between 0% to 50%', 'Rise between 50% to 100%', 
+                                'Rise between 100% to 200%', 'Rise of More than 200%']))
 
 # Displays the figure when program is executed    
 fig.show()
