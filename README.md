@@ -26,7 +26,7 @@ Once you complete these steps your environment will be ready to run the most rec
 
 ## Running Flask 
 
-1. To start the flask environment, execute the command <i>"flask run [port]"</i>. The port section can be empty and will default to port 8000. Run the url "https://localhost:[port]" and the main page of the dashboard will open up.
+1. To start the flask environment, execute the command <i>"flask run [port]"</i>. The port section can be empty and will default to port 5000. Run the url "https://localhost:[port]" and the main page of the dashboard will open up.
 
 2. Execute command <i>"export FLASK_ENV=development"</i>
 3. Execute command <i>"export FLASK_APP=main.py"</i>
