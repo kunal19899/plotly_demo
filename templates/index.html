@@ -61,11 +61,11 @@
         <header class="bg-white" style="margin-top: 5px; margin-bottom: 5px;">
             <a href="https://www.uta.edu" target="_blank"><img id="uta_logo" src="" class="rounded float-left" style="margin-left: 15px;"></a>
             <a href="http://itlab.uta.edu/index.html" target="_blank"><img id="itlab_logo" src="imgs/itlab-logo-v2.png" class="rounded float-right" style="margin-right: 15px;"></a>
-            <a href="http://itlab.uta.edu/Covid19/dashboard.html"><img id="center" src="imgs/banner-v2.png" class="rounded mx-auto d-block img-height-auto"></a>
+            <a href="{{url_for('index')}}"><img id="center" src="imgs/banner-v2.png" class="rounded mx-auto d-block img-height-auto"></a>
         </header>
         
         <main class="container-fluid" style="width: 100%; font-size:1.2vw">
-			<div class="" style="width:100%; margin-top:-5px">
+			<div class="" style="width:100%; ">
 				
 				<div class="border border-dark text-light container-fluid float-left" style="margin-top: 0; width: 18.5%; height: 2.3vw; border-radius: 0px; background-color:#008DC9;">
 					<p style="margin-top:0.15vw">Cumulative <strong>WHO</strong> Update</p>
@@ -85,7 +85,7 @@
 								<strong>US-Contiguous (3108 Counties)</strong>
                             </div> -->
 
-                            <form action="" method="" novalidate>
+                            <form action="map" method="POST" novalidate>
                                 <div class="btn btn-light">
                                     {{form.periodLength}}
                                 </div>
