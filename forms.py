@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SubmitField, SelectField
 from wtforms.fields.html5 import DateField
+
+
 class InputForm(FlaskForm):
     periodLength = SelectField(label="Period Length", choices=[3, 5, 7, 10, 14])
     start_of_startDate = DateField('Start', format = '%d/%m/%Y')

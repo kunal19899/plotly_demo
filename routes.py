@@ -13,17 +13,19 @@ def index():
     inputForm = InputForm()
     return render_template("index.html", index=True, form = inputForm)
 
-@app.route("/map", methods=['GET, POST'])
+@app.route("/map", methods=['POST'])
 def map():
+    print(request.form)
     if request.method == "POST":
+        # print(request.form)
         ipt = request.form
         periodLength = ipt['periodLength']
         start_of_startDate = ipt['start_of_startDate']
         start_of_endDate = ipt['start_of_endDate']
         interval = ipt['interval']
-    # else:
-    #     mapId = request.args.get('id', None)
-    # if mapId not None:
+
+
+    # call function for plotly here - returns 
 
     inputForm = InputForm()
     return render_template("index.html", index=True, form = inputForm)
