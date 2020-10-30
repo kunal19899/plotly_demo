@@ -81,34 +81,42 @@
 			</div>
             <br/>
             
-
-            {% if message%}
-            <br/>
-            <p class="bg-danger">{{message}}</p>
-            {% endif %}
-
-            
             <div class="border border-dark bg-secondary container-fluid p-1" style="margin-bottom: 0.7vw; margin-top:1.2vw; width:100%;">
                     <div class="container-fluid" style="width:100%">
-                            <!-- <div id ="us-contiguous" class="btn btn-light" disabled style="width:25%; cursor: default;">
-								<strong>US-Contiguous (3108 Counties)</strong>
-                            </div> -->
 
-                            <form action="map" method="POST" novalidate>
-                                <!-- <div class="btn btn-light"> -->
-                                    {{form.periodLength(class="btn btn-light")}}
-                                <!-- </div> -->
-                                <!-- <div class="btn btn-light"> -->
-                                    {{form.start_of_startDate(class="btn btn-light")}}
-                                <!-- </div> -->
-                                <!-- <div class="btn btn-light"> -->
-                                    {{form.start_of_endDate(class="btn btn-light")}}
-                                <!-- </div> -->
-                                <!-- <div class="btn btn-light"> -->
-                                    {{form.interval(class="btn btn-light")}}
-                                <!-- </div> -->
-                                {{form.submit(class="btn btn-dark")}}
+                            <form action = "map" method = "POST" novalidate>
+                                
+                                <select class="btn btn-light {% if check['period'] == 0 %} border-danger {% endif %}" id="periodLength" name="periodLength" size="1">
+        
+                                    {% for i in intervals %}
+                                    {% if i == -1 %}
+                                    <option value="{{i}}">Select an Interval</option>
+                                    {% else %}
+                                    <option value="{{i}}">{{i}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </select>
+                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" name="start_of_startDate" value="Period1">
+                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" value="Period2">
+                                <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1">
+        
+                                    {% for i in rates %}
+                                    {% if i == -1 %}
+                                    <option value="{{i}}">% Interval</option>
+                                    {% else %}
+                                    <option value="{{i}}">{{i}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </select>
+                                <input id="submit" class="btn btn-dark" type="submit" value ="Submit">
+                                {% if message %}
+                                <label class="text-danger form-check-label">* {{message}}</label>
+                                {% endif %}
                             </form>
+
+
                     </div> 
             </div>
             
