@@ -79,10 +79,12 @@
 					<strong> <span id="USCases"></span></strong></span> | <strong><span style="color:red"><span id="USDeaths"></span></span></strong> <em>(As of <span id="lastUpdate"></span> )</em></marquee>
 				</div>
 			</div>
-			<br/>
+            <br/>
+            
 
             {% if message%}
-            <p>{{message}}</p>
+            <br/>
+            <p class="bg-danger">{{message}}</p>
             {% endif %}
 
             
@@ -123,12 +125,6 @@
 
 			<br/>
 
-            
-            <!-- <div class="bg-map-img " style="width: 100%; position: relative; margin-bottom: 1vw; margin-top:0.8vw">
-                <img id="over-image" src="dashboard-images/US-Mainland/empty-1.png" style="width:100%; position: absolute;">
-                <img id="over-image-stats" src="dashboard-images/US-Mainland/empty-1.png" style="width:100%; position: absolute;">
-                <img id='map' src="dashboard-images/welcome-1.gif" style="width: 100%;">
-            </div> -->
             <div class="embed-responsive embed-responsive-21by9 bg-dark text-center" style="width: 80%; position: relative;">
                 <iframe src="{{ url_for('static', filename='maps/Cases-04-07-20vs04-08-20-intDays7ALL-CommID-Cases-04-07-20vs04-08-20-intDays7.html') }}" width="30%;" class="embed-responsive-item" allowfullscreen></iframe>
             </div>
