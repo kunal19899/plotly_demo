@@ -46,8 +46,6 @@ def map():
         if (int(periodLength) == -1):
             correctInput = False
             check['period'] = 0
-            print(check['period'])
-
         if (start_of_startDate == ''):
             correctInput = False
             check['startDate'] = 0
@@ -63,15 +61,10 @@ def map():
             return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check)
 
         start_of_startDate = datetime.strptime(start_of_startDate, '%Y-%m-%d')
-        end_of_startDate = start_of_startDate.date() + timedelta(days=int(periodLength))
+        end_of_startDate = start_of_startDate.date() + timedelta(days=int(periodLength)-1)
 
         start_of_endDate = datetime.strptime(start_of_endDate, '%Y-%m-%d')
-        end_of_endDate = start_of_endDate.date() + timedelta(days=int(periodLength))
-
-
-        print(start_of_endDate)
-        print(end_of_startDate)
-        print(end_of_startDate < start_of_endDate.date())
+        end_of_endDate = start_of_endDate.date() + timedelta(days=int(periodLength)-1)
 
         if end_of_startDate > start_of_endDate.date():
             message = 'Periods cannot overlap!'

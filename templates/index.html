@@ -45,6 +45,24 @@
 
         </style>
 
+        <script>
+            function toBorderDark(id){
+                document.getElementById(id).classList.remove('border-danger');
+            }
+
+            function addMin(){
+                var date = new Date(document.getElementById('start_of_startDate').value);
+                console.log(date);
+                console.log(date.getDate());
+                date.setDate(date.getDate() + document.getElementById('periodLength').value);
+                console.log(2);
+                console.log(date);
+                console.log(document.getElementById('start_of_startDate').value);
+                document.getElementById('start_of_endDate').min = date;
+                console.log(document.getElementById('start_of_endDate').min);
+            }
+        </script>
+
         <!-- Custom styles for this template -->
         <link href="cover.css" rel="stylesheet">
         <link href="css/dashboard-v3.css" rel="stylesheet">
@@ -86,7 +104,7 @@
 
                             <form action = "map" method = "POST" novalidate>
                                 
-                                <select class="btn btn-light {% if check['period'] == 0 %} border-danger {% endif %}" id="periodLength" name="periodLength" size="1">
+                                <select class="btn btn-light {% if check['period'] == 0 %} border-danger {% endif %}" id="periodLength" name="periodLength" size="1" onchange="toBorderDark(id);">
         
                                     {% for i in intervals %}
                                     {% if i == -1 %}
@@ -97,9 +115,9 @@
                                     {% endfor %}
 
                                 </select>
-                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" name="start_of_startDate" value="Period1">
-                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" value="Period2">
-                                <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1">
+                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" name="start_of_startDate" onchange="toBorderDark(id); addMin();">
+                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" onchange="toBorderDark(id);">
+                                <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1" onchange="toBorderDark(id);">
         
                                     {% for i in rates %}
                                     {% if i == -1 %}
