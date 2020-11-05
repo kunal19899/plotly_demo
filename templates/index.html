@@ -51,15 +51,21 @@
             }
 
             function addMin(){
-                var date = new Date(document.getElementById('start_of_startDate').value);
-                console.log(date);
-                console.log(date.getDate());
-                date.setDate(date.getDate() + document.getElementById('periodLength').value);
-                console.log(2);
-                console.log(date);
                 console.log(document.getElementById('start_of_startDate').value);
-                document.getElementById('start_of_endDate').min = date;
+                var vals = document.getElementById('start_of_startDate').value.split('-');
+                var year = vals[0];
+                var month = vals[1];
+                var day = vals[2];
+                var date = new Date(year, month-1, day);
+                console.log(date);
+                date.setDate(date.getDate() + parseInt(document.getElementById('periodLength').value));
+                // console.log(1);
+                console.log(date);
+                // // console.log(document.getElementById('start_of_startDate').value);
+                var month = parseInt(date.getMonth())+1
+                var x = document.getElementById('start_of_endDate').min = date.getFullYear() + "-" + month + "-" + 0+date.getDate();
                 console.log(document.getElementById('start_of_endDate').min);
+
             }
         </script>
 
@@ -115,8 +121,8 @@
                                     {% endfor %}
 
                                 </select>
-                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" name="start_of_startDate" onchange="toBorderDark(id); addMin();">
-                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" onchange="toBorderDark(id);">
+                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" min="2020-02-01" max="" name="start_of_startDate" onchange="toBorderDark(id); addMin();">
+                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" min="2020-02-01" max="" onchange="toBorderDark(id);">
                                 <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1" onchange="toBorderDark(id);">
         
                                     {% for i in rates %}
@@ -151,8 +157,8 @@
 
 			<br/>
 
-            <div class="embed-responsive embed-responsive-21by9 bg-dark text-center" style="width: 80%; position: relative;">
-                <iframe src="{{ url_for('static', filename='maps/Cases-04-07-20vs04-08-20-intDays7ALL-CommID-Cases-04-07-20vs04-08-20-intDays7.html') }}" width="30%;" class="embed-responsive-item" allowfullscreen></iframe>
+            <div class="embed-responsive embed-responsive-21by9 bg-dark text-center" style="width: 50%; position: relative;">
+                <iframe src="{{ url_for('static', filename='maps/Cases-04-07-20vs04-08-20-intDays7ALL-CommID-Cases-04-07-20vs04-08-20-intDays7.html') }}" width="100%;" class="embed-responsive-item" allowfullscreen></iframe>
             </div>
 			
 			
