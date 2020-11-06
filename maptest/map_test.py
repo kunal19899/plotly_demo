@@ -83,13 +83,13 @@ class map_test() :
 
     # Initialize the mash tables for
     #   the maps and CSV files
-    mapHash = self.initMapHash()
+    self.mapHash = self.initMapHash()
     csvHash = self.initCSVHash()
 
     # Check if there is a map for this dataset
-    if mapHash.get( key ) != None :
+    if self.mapHash.get( key ) != None :
       #print( "map key: %s does exist" % key )
-      fName = './static/maps/' + subName + '/' + mapHash[key]
+      fName = './static/maps/' + subName + '/' + self.mapHash[key]
     else :
       if csvHash.get( key ) == None :
         print( "csv key: %s doesn't exist" % key )
@@ -265,7 +265,7 @@ class map_test() :
     # The dictionary that stores all the keys to
     #   the html file we want to display to the
     #   home page iframe
-    mapHash = {}
+    mHash = {}
 
     with open( './maptest/tables/html_table.txt', 'r' ) as fp :
       lines = fp.read().replace( '\r', '' ).split( '\n' )
@@ -285,9 +285,9 @@ class map_test() :
         else :
           val = line[1]
 
-        mapHash[key] = val
+        mHash[key] = val
   
-    return mapHash
+    return mHash
 #-------------------------------------------------------------
 
 
