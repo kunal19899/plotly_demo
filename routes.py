@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config.from_object(Config)
 
-intervals = [-1, 3, 5, 7, 10, 14]
-rates = [-1, 1,2,3,4,5,6,7,8]
+intervals = [1, 3, 5, 7, 10, 14]
+rates = [-1,1,2,3,4,5,6,7,8]
 check = {
     'period': 1,
     'startDate': 1,
@@ -36,14 +36,11 @@ def map():
     if request.method == "POST":
         ipt = request.form
         periodLength = ipt['periodLength']
-        if periodLength == "Select a Period Length": periodLength = -1
         start_of_startDate = ipt['start_of_startDate']
         start_of_endDate = ipt['start_of_endDate']
         interval = ipt['interval']
-        if interval == "% Interval": interval = -1
-
         
-        if (int(periodLength) == -1):
+        if (int(periodLength) == 1):
             correctInput = False
             check['period'] = 0
         if (start_of_startDate == ''):

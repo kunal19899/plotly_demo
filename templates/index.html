@@ -50,22 +50,75 @@
                 document.getElementById(id).classList.remove('border-danger');
             }
 
-            function addMin(){
-                console.log(document.getElementById('start_of_startDate').value);
-                var vals = document.getElementById('start_of_startDate').value.split('-');
+            function adjust_min_of_2nd_period(){
+                if ((document.getElementById('start_of_startDate').value != '')){
+                    console.log(document.getElementById('start_of_startDate').value);
+                    var vals = document.getElementById('start_of_startDate').value.split('-');
+                    var year = vals[0];
+                    var month = vals[1];
+                    var day = vals[2];
+                    var date = new Date(year, month-1, day);
+                    date.setDate(date.getDate() + parseInt(document.getElementById('periodLength').value));
+                    var month = parseInt(date.getMonth())+1
+                    if (month < 10){
+                        month = 0+month.toString();
+                    }
+                    var exactDate = date.getDate();
+                    if (exactDate < 10){
+                        exactDate = 0+exactDate.toString();
+                    }
+                    var x = document.getElementById('start_of_endDate').min = date.getFullYear() + "-" + month + "-" + exactDate;
+                }
+            }
+
+            function set_max_date(){
+                var today = new Date();
+
+                var end = new Date();
+                
+                end.setDate(today.getDate() - (parseInt(document.getElementById('periodLength').value)) + 1);
+                var date = end.getFullYear()+'-'+(end.getMonth()+1)+'-'+end.getDate();
+                var vals = date.split('-');
                 var year = vals[0];
                 var month = vals[1];
                 var day = vals[2];
-                var date = new Date(year, month-1, day);
+                if (month < 10){
+                    month = 0+month.toString();
+                }
+                if (day < 10){
+                    day = 0+day.toString();
+                }
+                var date = year +'-'+ month +'-'+ day;
+                var maxEndDate = document.getElementById('start_of_endDate').max = date; 
+                
+                var start = new Date();
+                start.setDate(today.getDate() - 2*(parseInt(document.getElementById('periodLength').value)) + 1);
+                date = start.getFullYear()+'-'+(start.getMonth()+1)+'-'+start.getDate();
+                console.log(start);
+                vals = date.split('-');
+                year = vals[0];
+                month = vals[1];
+                day = vals[2];
+                if (month < 10){
+                    month = 0+month.toString();
+                }
+                if (day < 10){
+                    day = 0+day.toString();
+                }
+                date = year +'-'+ month +'-'+ day;
+                var maxStartDate = document.getElementById('start_of_startDate').max = date;
                 console.log(date);
-                date.setDate(date.getDate() + parseInt(document.getElementById('periodLength').value));
-                // console.log(1);
-                console.log(date);
-                // // console.log(document.getElementById('start_of_startDate').value);
-                var month = parseInt(date.getMonth())+1
-                var x = document.getElementById('start_of_endDate').min = date.getFullYear() + "-" + month + "-" + 0+date.getDate();
-                console.log(document.getElementById('start_of_endDate').min);
+            }
 
+            function enable_2nd_calander(){
+                if ((document.getElementById('start_of_startDate').value != '') && (document.getElementById('periodLength').value != 1)){
+                    document.getElementById('start_of_endDate').disabled = false;
+                }
+
+                if (document.getElementById('periodLength').value == 1){
+                    document.getElementById('start_of_endDate').disabled = true;
+                }
+                
             }
         </script>
 
@@ -83,7 +136,8 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     </head>
-    <body class="text-center">
+
+    <body class="text-center" onload="set_max_date(); enable_2nd_calander();">
         <header class="bg-white" style="margin-top: 5px; margin-bottom: 5px;">
             <a href="https://www.uta.edu" target="_blank"><img id="uta_logo" src="{{ url_for('static', filename='imgs/uta-logo-v2.png') }}" class="rounded float-left" style="margin-left: 15px;"></a>
             <a href="http://itlab.uta.edu/index.html" target="_blank"><img id="itlab_logo" src="{{ url_for('static', filename='imgs/itlab-logo-v2.png') }}" class="rounded float-right" style="margin-right: 15px;"></a>
@@ -110,10 +164,10 @@
 
                             <form action = "map" method = "POST" novalidate>
                                 
-                                <select class="btn btn-light {% if check['period'] == 0 %} border-danger {% endif %}" id="periodLength" name="periodLength" size="1" onchange="toBorderDark(id);">
+                                <select class="btn btn-light {% if check['period'] == 0 %} border-danger {% endif %}" id="periodLength" name="periodLength" size="1" onchange="toBorderDark(id); adjust_min_of_2nd_period(); enable_2nd_calander(); set_max_date();">
         
                                     {% for i in intervals %}
-                                    {% if i == -1 %}
+                                    {% if i == 1 %}
                                     <option value="{{i}}">Select an Interval</option>
                                     {% else %}
                                     <option value="{{i}}">{{i}}</option>
@@ -121,8 +175,8 @@
                                     {% endfor %}
 
                                 </select>
-                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" min="2020-02-01" max="" name="start_of_startDate" onchange="toBorderDark(id); addMin();">
-                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" min="2020-02-01" max="" onchange="toBorderDark(id);">
+                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" min="2020-02-01" name="start_of_startDate" onchange="toBorderDark(id); adjust_min_of_2nd_period(); enable_2nd_calander();">
+                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" min="2020-02-01" onchange="toBorderDark(id);" disabled>
                                 <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1" onchange="toBorderDark(id);">
         
                                     {% for i in rates %}
