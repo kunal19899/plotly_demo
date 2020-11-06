@@ -334,7 +334,7 @@ class map_test() :
 
 
   def get_maphash( self ) :
-    return mapHash
+    return self.mapHash
 #-------------------------------------------------------------
 
 # This is how you'll call the class
