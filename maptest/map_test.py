@@ -92,7 +92,6 @@ class map_test() :
       if csvHash.get( key ) == None :
         print( "csv key: %s doesn't exist" % key )
         
-
       # Creates a file path for where to store the cases CSV files
       csvPath = os.getcwd() + '/maptest/cases/'+ subName
       
@@ -230,12 +229,12 @@ class map_test() :
                   '-' + keys[7] + '-' + keys[-2][7:] )
           
           # Writes the values to csv_table.txt
-          with open( './tables/csv_table.txt', 'a+' ) as fp :
+          with open( './maptest/tables/csv_table.txt', 'a+' ) as fp :
             fp.write( key + ',' + names + '\r\n' )
           
           fp.close()
 
-    with open( './tables/csv_table.txt', 'r' ) as fp :
+    with open( './maptest/tables/csv_table.txt', 'r' ) as fp :
       lines = fp.read().replace( '\r', '' ).split( '\n' )
 
     # Checks if the file is not empty
