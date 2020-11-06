@@ -108,7 +108,7 @@ class map_test() :
       print( "map key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the map html files
-      mapPath = os.getcwd() + './static/maps/'+ subName
+      mapPath = os.getcwd() + '/static/maps/'+ subName
     
       # Checks if a directory for the map data set exists
       # If not, then we create one
