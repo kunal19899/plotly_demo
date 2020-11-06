@@ -39,7 +39,7 @@ class map_test() :
     self.rates = rates
 
     # Make mapHash() a global variable
-    mapHash = {}
+    self.mapHash = {}
 
   # Runs entire checks for generating map
   def main( self ) :
