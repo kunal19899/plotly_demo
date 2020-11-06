@@ -92,7 +92,7 @@ class map_test() :
       fName = './static/maps/' + subName + '/' + self.mapHash[key]
     else :
       if csvHash.get( key ) == None :
-        subprocess.call(["g++", "-o", "hello", "hello.cpp"])
+        subprocess.call(["g++", "-o", "hello", "./maptest/hello.cpp"])
         subprocess.call(["./hello"])
 
         #print( "csv key: %s doesn't exist" % key )
