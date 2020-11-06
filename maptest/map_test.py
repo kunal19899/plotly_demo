@@ -44,9 +44,10 @@ class map_test() :
     # Reads in user input from the website
     options = [ self.interval, self.sDate,
                 self.fDate, self.rates ]
-
-    if options[3] == 8 :
+                
+    if int(options[3]) == int(8) :
       options[3] = 'ALL'
+
 
     # Stores the name of the temporary key
     tempKey = ''
