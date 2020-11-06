@@ -39,7 +39,7 @@ def index():
     inputForm = InputForm()
     message = ''
     check_return_to_default()
-    return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check)
+    return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check, filepath='')
 
 @app.route("/map", methods=['GET','POST'])
 def map():
@@ -69,7 +69,7 @@ def map():
         
         if not correctInput:
             message = "Empty Fields"
-            return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check)
+            return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check, filepath='')
 
         start_of_startDate = datetime.strptime(start_of_startDate, '%Y-%m-%d')
         end_of_startDate = start_of_startDate.date() + timedelta(days=int(periodLength)-1)
@@ -81,9 +81,8 @@ def map():
             message = 'Periods cannot overlap!'
             check['endDate'] = 0
             check['startDate'] = 0
-            return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check)
+            return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check, filepath='')
             
-            ###########TODO: create sync with Endrit's code##################
             
     start_of_startDate_strip = str(start_of_startDate.date()).split('-')
     x = datetime(int(start_of_startDate_strip[0]), int(start_of_startDate_strip[1]), int(start_of_startDate_strip[2]))
@@ -95,12 +94,12 @@ def map():
     
     gen_map = map_test.map_test(periodLength, start_of_startDate, start_of_endDate, interval)
     key = gen_map.main()
-    print(key)
-
-            ##################################################################
+    maphash = gen_map.get_maphash()
+    returned_map = maphash[key]
+    filepath = "maps/Cases-" + start_of_startDate + "vs" + start_of_endDate + "-intDays" + periodLength + "/" + returned_map
         
     check_return_to_default()
-    return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check, correctInput=correctInput)
+    return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check, correctInput=correctInput, filepath=filepath)
 
 
 

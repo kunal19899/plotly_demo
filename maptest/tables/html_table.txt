@@ -1,4 +1,2 @@
-2-04-JUL-20-04-AUG-20-7,2-CommID-Cases-04-JUL-20vs04-AUG-20-intDays7.html
-5-04-JUL-20-04-AUG-20-14,5-CommID-Cases-04-JUL-20vs04-AUG-20-intDays14.html
-2-04-JUL-20-04-AUG-20-14,2-CommID-Cases-04-JUL-20vs04-AUG-20-intDays14.html
-ALL-04-JUL-20-04-AUG-20-14,ALL-CommID-Cases-04-JUL-20vs04-AUG-20-intDays14.html
+1-04-JUL-20-04-AUG-20-14,1-CommID-Cases-04-JUL-20vs04-AUG-20-intDays14.html
+6-04-JUL-20-04-AUG-20-7,6-CommID-Cases-04-JUL-20vs04-AUG-20-intDays7.html
