@@ -87,7 +87,7 @@ class map_test() :
     # Check if there is a map for this dataset
     if mapHash.get( key ) != None :
       print( "map key: %s does exist" % key )
-      fName = './static/' + subName + '/' + mapHash[key]
+      fName = './static/maps/' + subName + '/' + mapHash[key]
     else :
       if csvHash.get( key ) == None :
         print( "csv key: %s doesn't exist" % key )
