@@ -86,11 +86,11 @@ class map_test() :
 
     # Check if there is a map for this dataset
     if mapHash.get( key ) != None :
-      print( "map key: %s does exist" % key )
+      #print( "map key: %s does exist" % key )
       fName = './static/maps/' + subName + '/' + mapHash[key]
     else :
       if csvHash.get( key ) == None :
-        print( "csv key: %s doesn't exist" % key )
+        #print( "csv key: %s doesn't exist" % key )
         
       # Creates a file path for where to store the cases CSV files
       csvPath = os.getcwd() + '/maptest/cases/'+ subName
@@ -105,7 +105,7 @@ class map_test() :
       else :
         print( 'this csv directory exists' )
 
-      print( "map key: %s doesn't exist" % key )
+      #print( "map key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the map html files
       mapPath = os.getcwd() + '/static/maps/'+ subName
