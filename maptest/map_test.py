@@ -126,10 +126,11 @@ class map_test() :
       # Add key and value to the HTML hash table 
       with open( './maptest/tables/html_table.txt', 'a' ) as fp :
         fp.write( key + ',' + fName + '.html\r\n' )
+
       fp.close()
 
       # Update the map hash table
-      self.mapHash[key] = fName
+      self.mapHash[key] = ( fName + '.html\r\n' )
 
     return key
 #-------------------------------------------------------------
