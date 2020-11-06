@@ -95,7 +95,7 @@ def map():
     
     gen_map = map_test.map_test(periodLength, start_of_startDate, start_of_endDate, interval)
     key = gen_map.main()
-    print(key)
+    
 
             ##################################################################
         

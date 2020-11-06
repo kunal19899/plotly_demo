@@ -330,10 +330,4 @@ class map_test() :
 #-------------------------------------------------------------
 
 # This is how you'll call the class
-<<<<<<< HEAD
-# test = map_test( 7, '04-JUL-20', '04-AUG-20', 2 )
-=======
-# test = map_test( 30, '04-JUL-20', '04-AUG-20', 8 )
->>>>>>> 3126e1a923185785f906de8755ba2e6d4698ea17
-# key = test.main()
 
