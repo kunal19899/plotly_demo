@@ -94,7 +94,7 @@ class map_test() :
         
 
       # Creates a file path for where to store the cases CSV files
-      csvPath = os.getcwd() + '/cases/'+ subName
+      csvPath = os.getcwd() + '/maptest/cases/'+ subName
       
       # Checks if a directory for the CSV data set exists
       # If not, then we create one
@@ -109,7 +109,7 @@ class map_test() :
       print( "map key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the map html files
-      mapPath = os.getcwd() + '../static/maps/'+ subName
+      mapPath = os.getcwd() + './static/maps/'+ subName
     
       # Checks if a directory for the map data set exists
       # If not, then we create one
@@ -122,7 +122,7 @@ class map_test() :
       fig = self.generateMap( subName, fName )
 
       # Add key and value to the HTML hash table 
-      with open( './tables/html_table.txt', 'a' ) as fp :
+      with open( './maptest/tables/html_table.txt', 'a' ) as fp :
         fp.write( key + ',' + fName + '.html\r\n' )
 
       fp.close()
@@ -138,7 +138,7 @@ class map_test() :
     TODO: Create a way to parse a folder from filename
 
     """
-    path = ( './cases/'+ dirName + 
+    path = ( './maptest/cases/'+ dirName + 
              '/' + fName + '.csv' )
 
     # Reads in the info from our COVID data set
@@ -191,7 +191,7 @@ class map_test() :
     #fig.show()
  
     # Path to the specific directory the file is stored in 
-    nDir  = ( '../static/maps/' + dirName + '/' )
+    nDir  = ( './static/maps/' + dirName + '/' )
 
     # Path to where to store the file for the hash table
     nFile = fName + '.html'
@@ -211,7 +211,7 @@ class map_test() :
     csvHash = {}
 
     # Empties out the file before we store new values
-    open( './tables/csv_table.txt', 'w+' ).close()
+    open( './maptest/tables/csv_table.txt', 'w+' ).close()
 
     # Walks through each subdirectory in /cases/ and
     #   stores the names of the CSVs in csv_table.txt
@@ -265,7 +265,7 @@ class map_test() :
     #   home page iframe
     mapHash = {}
 
-    with open( './tables/html_table.txt', 'r' ) as fp :
+    with open( './maptest/tables/html_table.txt', 'r' ) as fp :
       lines = fp.read().replace( '\r', '' ).split( '\n' )
 
     fp.close()
