@@ -90,6 +90,7 @@ class map_test() :
       fName = './static/maps/' + subName + '/' + mapHash[key]
     else :
       if csvHash.get( key ) == None :
+        trash = ''
         #print( "csv key: %s doesn't exist" % key )
         
       # Creates a file path for where to store the cases CSV files
