@@ -21,7 +21,7 @@ with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-c
 import os
 
 # Used to import and run the C++ program to generate CSV files
-from ctypes import cdll, c_char_p
+import subprocess
 
 class map_test() :
   # Constructor
@@ -92,7 +92,9 @@ class map_test() :
       fName = './static/maps/' + subName + '/' + self.mapHash[key]
     else :
       if csvHash.get( key ) == None :
-        cpp_rtn = dll.LoadLibrary("./hello")
+        subprocess.call(["g++", "-o", "hello", "hello.c"])
+        subprocess.call(["./hello"])
+
         #print( "csv key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the cases CSV files
