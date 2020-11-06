@@ -87,7 +87,7 @@ class map_test() :
     # Check if there is a map for this dataset
     if mapHash.get( key ) != None :
       print( "map key: %s does exist" % key )
-      fName = './graphs/' + subName + '/' + mapHash[key]
+      fName = './static/' + subName + '/' + mapHash[key]
     else :
       if csvHash.get( key ) == None :
         print( "csv key: %s doesn't exist" % key )
@@ -109,7 +109,7 @@ class map_test() :
       print( "map key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the map html files
-      mapPath = os.getcwd() + '/graphs/'+ subName
+      mapPath = os.getcwd() + '../static/maps/'+ subName
     
       # Checks if a directory for the map data set exists
       # If not, then we create one
@@ -191,7 +191,7 @@ class map_test() :
     #fig.show()
  
     # Path to the specific directory the file is stored in 
-    nDir  = ( './graphs/' + dirName + '/' )
+    nDir  = ( '../static/maps/' + dirName + '/' )
 
     # Path to where to store the file for the hash table
     nFile = fName + '.html'
@@ -330,4 +330,7 @@ class map_test() :
 #-------------------------------------------------------------
 
 # This is how you'll call the class
+# test = map_test( 7, '04-JUL-20', '04-AUG-20', 2 )
+# test = map_test( 30, '04-JUL-20', '04-AUG-20', 8 )
+# key = test.main()
 
