@@ -92,9 +92,9 @@ class map_test() :
       fName = './static/maps/' + subName + '/' + self.mapHash[key]
     else :
       if csvHash.get( key ) == None :
-        print( "csv key: %s doesn't exist" % key )
+        cpp_rtn = dll.LoadLibrary("./hello")
+        #print( "csv key: %s doesn't exist" % key )
 
-        
       # Creates a file path for where to store the cases CSV files
       csvPath = os.getcwd() + '/maptest/cases/'+ subName
       
@@ -126,8 +126,10 @@ class map_test() :
       # Add key and value to the HTML hash table 
       with open( './maptest/tables/html_table.txt', 'a' ) as fp :
         fp.write( key + ',' + fName + '.html\r\n' )
-
       fp.close()
+
+      # Update the map hash table
+      self.mapHash[key] = fName
 
     return key
 #-------------------------------------------------------------
