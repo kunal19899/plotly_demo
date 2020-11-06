@@ -118,7 +118,6 @@
                 if (document.getElementById('periodLength').value == 1){
                     document.getElementById('start_of_endDate').disabled = true;
                 }
-                
             }
         </script>
 
@@ -179,11 +178,11 @@
                                 <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" min="2020-02-01" onchange="toBorderDark(id);" disabled>
                                 <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1" onchange="toBorderDark(id);">
         
-                                    {% for i in rates %}
-                                    {% if i == -1 %}
+                                    {% for i in rates.keys() %}
+                                    {% if rates[i] == -1 %}
                                     <option value="{{i}}">% Interval</option>
                                     {% else %}
-                                    <option value="{{i}}">{{i}}</option>
+                                    <option value="{{i}}">{{rates[i]}}</option>
                                     {% endif %}
                                     {% endfor %}
 

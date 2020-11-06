@@ -12,7 +12,21 @@ app.config["DEBUG"] = True
 app.config.from_object(Config)
 
 intervals = [1, 3, 5, 7, 10, 14]
-rates = [-1,1,2,3,4,5,6,7,8]
+
+#####TODO: change to hash table  #########
+rates = {
+    -1: -1,
+    1: 'Big Dip',
+    2: 'Downtick',
+    3: 'Decrease',
+    4: 'Flat',
+    5: 'Increase',
+    6: 'Uptick',
+    7: 'Spike',
+    8: 'All',
+}
+##########################################
+
 check = {
     'period': 1,
     'startDate': 1,
@@ -71,8 +85,17 @@ def map():
             
             ###########TODO: create sync with Endrit's code##################
             
-            # map_test.main()
+    start_of_startDate_strip = str(start_of_startDate.date()).split('-')
+    x = datetime(int(start_of_startDate_strip[0]), int(start_of_startDate_strip[1]), int(start_of_startDate_strip[2]))
+    start_of_startDate = x.strftime("%d-%b-%y").upper()
 
+    start_of_endDate_strip = str(start_of_endDate.date()).split('-')
+    x = datetime(int(start_of_endDate_strip[0]), int(start_of_endDate_strip[1]), int(start_of_endDate_strip[2]))
+    start_of_endDate = x.strftime("%d-%b-%y").upper()
+    
+    gen_map = map_test.map_test(periodLength, start_of_startDate, start_of_endDate, interval)
+    key = gen_map.main()
+    print(key)
 
             ##################################################################
         

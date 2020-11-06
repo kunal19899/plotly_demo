@@ -20,6 +20,9 @@ with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-c
 # To find the proper path to find the html file we want to display
 import os
 
+# Used to import and run the C++ program to generate CSV files
+from ctypes import cdll, c_char_p
+
 
 class map_test() :
   # Constructor
@@ -38,14 +41,12 @@ class map_test() :
 
   # Runs entire checks for generating map
   def main( self ) :
-    # Initialize the mash tables for
-    #   the maps and CSV files
-    mapHash = self.initMapHash()
-    csvHash = self.initCSVHash()
-
     # Reads in user input from the website
     options = [ self.interval, self.sDate,
                 self.fDate, self.rates ]
+
+    if options[3] == 8 :
+      options[3] = 'ALL'
 
     # Stores the name of the temporary key
     tempKey = ''
@@ -78,23 +79,45 @@ class map_test() :
                 keys[5] + '-' + keys[6] + 
                 '-intDays' + keys[7] )
 
+    # Initialize the mash tables for
+    #   the maps and CSV files
+    mapHash = self.initMapHash()
+    csvHash = self.initCSVHash()
+
     # Check if there is a map for this dataset
     if mapHash.get( key ) != None :
-      print( "key: %s does exist" % key )
+      print( "map key: %s does exist" % key )
       fName = './graphs/' + subName + '/' + mapHash[key]
     else :
-      print( "key: %s doesn't exist" % key )
+      if csvHash.get( key ) == None :
+        print( "csv key: %s doesn't exist" % key )
+        
 
-      # Creates the path for where to store the file
-      path = os.getcwd() + '/graphs/'+ subName
-    
-      # Checks if a directory for the data set exists
+      # Creates a file path for where to store the cases CSV files
+      csvPath = os.getcwd() + '/cases/'+ subName
+      
+      # Checks if a directory for the CSV data set exists
       # If not, then we create one
-      if not os.path.isdir( path ) :
+      if not os.path.isdir( csvPath ) :
         try :
-          os.mkdir(path)
+          os.mkdir( csvPath )
         except OSError :
-          print ("Mkdir for directory %s has failed." % path)
+          print ("Command mkdir for directory %s has failed." % csvPath)
+      else :
+        print( 'this csv directory exists' )
+
+      print( "map key: %s doesn't exist" % key )
+
+      # Creates a file path for where to store the map html files
+      mapPath = os.getcwd() + '/graphs/'+ subName
+    
+      # Checks if a directory for the map data set exists
+      # If not, then we create one
+      if not os.path.isdir( mapPath ) :
+        try :
+          os.mkdir( mapPath )
+        except OSError :
+          print ("Command mkdir for directory %s has failed." % mapPath)
 
       fig = self.generateMap( subName, fName )
 
@@ -106,6 +129,7 @@ class map_test() :
 
     return key
 #-------------------------------------------------------------
+
 
 
   # Takes a filename and generates the map requested by the user 
@@ -153,9 +177,10 @@ class map_test() :
                             size = 15)),
                         ticks = 'inside',
                         tickvals = [1, 2, 3, 4, 5, 6, 7],
-                        ticktext=['Drop of Greater than 100%', 'Drop between 50% to 100%', 'Drop between 0% to 50%',
-                                  'No Change', 'Rise between 0% to 50%', 'Rise between 50% to 100%', 
-                                  'Rise of Greater than 100%'],
+                        ticktext = ['-100%: BIG DIP', '(-100%, 50%]: DOWNTICK', 
+                                    '(-50%, 0%): DECREASE', '0%: FLAT',
+                                    '(0%, 50%): INCREASE', '[50%, 100%): UPTICK', 
+                                    'Greater than 100%: SPIKE'],
                         tickfont = dict(
                           size = 10),
                         thickness = 30,
@@ -177,11 +202,38 @@ class map_test() :
     return fig
 #-------------------------------------------------------------
 
+
+
   # Initializes the CSV Hash Table
   def initCSVHash( self ) :
     # The dictionary that stores all the keys to
     #   the csv file we want to generate maps from
     csvHash = {}
+
+    # Empties out the file before we store new values
+    open( './tables/csv_table.txt', 'w+' ).close()
+
+    # Walks through each subdirectory in /cases/ and
+    #   stores the names of the CSVs in csv_table.txt
+    for path, subd, files in os.walk( './cases/' ) :
+      for names in files:
+        keys = names.replace( '.', '-' ).split( '-' )
+
+        # Only the keys and CSV files will be stored 
+        #   in csv_table.txt
+        if keys[-1] == 'csv' :
+          # Creates the key for each value in the
+          #   CSV hash table
+          key = ( keys[0] + '-' + keys[3] + 
+                  '-' + keys[4] + '-' + keys[5][:2] +
+                  '-' + keys[5][-2:] + '-' + keys[6] +
+                  '-' + keys[7] + '-' + keys[-2][7:] )
+          
+          # Writes the values to csv_table.txt
+          with open( './tables/csv_table.txt', 'a+' ) as fp :
+            fp.write( key + ',' + names + '\r\n' )
+          
+          fp.close()
 
     with open( './tables/csv_table.txt', 'r' ) as fp :
       lines = fp.read().replace( '\r', '' ).split( '\n' )
@@ -221,7 +273,7 @@ class map_test() :
     # Checks if the file is not empty
     if lines[0] != '' :
       for line in lines :
-        line = line.split( ',')
+        line = line.split( ',' )
 
         key = line[0]
 
@@ -242,35 +294,46 @@ class map_test() :
   #   the names of all the .csv and .html files 
   def createKey( self, tempKey ) :
     key = ''
+    front = ''
+    middle = ''
+    end = ''
 
     if( tempKey.endswith('ALL') ) :
       # Holds the ALL part of the string to be moved
       #   to the front of a key
       front = tempKey[-3:]
 
-      # Rearranges the string for key in order for
-      #   it to fit the format of each files that
-      #   will need to be read in
-      middle = tempKey[1:-3]
-
-      end    = tempKey[:1]
-
-      key = front + middle + end
+      if tempKey[1] == '-' :
+        # Rearranges the string for key in order for
+        #   it to fit the format of each files that
+        #   will need to be read in
+        middle = tempKey[1:-3]
+        end    = tempKey[:1]
+      else : 
+        middle = tempKey[2:-3]
+        end = tempKey[:2]
     else :
       # Otherwise, last element in the key will be 
       #   a single digit
       front = tempKey[-1:]
 
-      middle = tempKey[1:-1]
+      if tempKey[1] == '-' :
+        middle = tempKey[1:-1]
+        end = tempKey[:1]
+      else :
+        middle = tempKey[2:-1]
+        end = tempKey[:2]
 
-      end = tempKey[:1]
-
-      key = front + middle + end
+    key = front + middle + end
 
     return key
 #-------------------------------------------------------------
 
 # This is how you'll call the class
+<<<<<<< HEAD
 # test = map_test( 7, '04-JUL-20', '04-AUG-20', 2 )
+=======
+# test = map_test( 30, '04-JUL-20', '04-AUG-20', 8 )
+>>>>>>> 3126e1a923185785f906de8755ba2e6d4698ea17
 # key = test.main()
 
