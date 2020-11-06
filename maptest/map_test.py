@@ -130,7 +130,7 @@ class map_test() :
       fp.close()
 
       # Update the map hash table
-      self.mapHash[key] = ( fName + '.html\r\n' )
+      self.mapHash[key] = ( fName + '.html' )
 
     return key
 #-------------------------------------------------------------
