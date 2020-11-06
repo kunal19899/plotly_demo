@@ -24,9 +24,6 @@ import os
 from ctypes import cdll, c_char_p
 
 class map_test() :
-  # Make mapHash() a global variable
-  mapHash = {}
-
   # Constructor
   def __init__( self, interval, sDate, fDate, rates ) :
     # Stores the number of days the user chooses
@@ -40,6 +37,9 @@ class map_test() :
 
     # Stores the rates of change
     self.rates = rates
+
+    # Make mapHash() a global variable
+    mapHash = {}
 
   # Runs entire checks for generating map
   def main( self ) :
