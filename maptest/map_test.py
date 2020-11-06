@@ -214,7 +214,7 @@ class map_test() :
 
     # Walks through each subdirectory in /cases/ and
     #   stores the names of the CSVs in csv_table.txt
-    for path, subd, files in os.walk( './cases/' ) :
+    for path, subd, files in os.walk( './maptest/cases/' ) :
       for names in files:
         keys = names.replace( '.', '-' ).split( '-' )
 
