@@ -23,8 +23,10 @@ import os
 # Used to import and run the C++ program to generate CSV files
 from ctypes import cdll, c_char_p
 
-
 class map_test() :
+  # Make mapHash() a global variable
+  mapHash = {}
+
   # Constructor
   def __init__( self, interval, sDate, fDate, rates ) :
     # Stores the number of days the user chooses
@@ -47,7 +49,6 @@ class map_test() :
                 
     if int(options[3]) == int(8) :
       options[3] = 'ALL'
-
 
     # Stores the name of the temporary key
     tempKey = ''
@@ -328,6 +329,12 @@ class map_test() :
     key = front + middle + end
 
     return key
+#-------------------------------------------------------------
+
+
+
+  def get_maphash( self ) :
+    return mapHash
 #-------------------------------------------------------------
 
 # This is how you'll call the class
