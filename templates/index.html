@@ -13,7 +13,7 @@
         <!-- Bootstrap core CSS -->
         <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-            <!-- Favicons 
+            <!-- Favicons -->
         <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
         <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
         <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
@@ -22,7 +22,7 @@
         <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
         <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
         <meta name="theme-color" content="#563d7c">
--->
+
 
         <style>
         .bd-placeholder-img {
@@ -44,9 +44,87 @@
         }
 
         </style>
+
+        <script>
+            function toBorderDark(id){
+                document.getElementById(id).classList.remove('border-danger');
+            }
+
+            function adjust_min_of_2nd_period(){
+                if ((document.getElementById('start_of_startDate').value != '')){
+                    console.log(document.getElementById('start_of_startDate').value);
+                    var vals = document.getElementById('start_of_startDate').value.split('-');
+                    var year = vals[0];
+                    var month = vals[1];
+                    var day = vals[2];
+                    var date = new Date(year, month-1, day);
+                    date.setDate(date.getDate() + parseInt(document.getElementById('periodLength').value));
+                    var month = parseInt(date.getMonth())+1
+                    if (month < 10){
+                        month = 0+month.toString();
+                    }
+                    var exactDate = date.getDate();
+                    if (exactDate < 10){
+                        exactDate = 0+exactDate.toString();
+                    }
+                    var x = document.getElementById('start_of_endDate').min = date.getFullYear() + "-" + month + "-" + exactDate;
+                }
+            }
+
+            function set_max_date(){
+                var today = new Date();
+
+                var end = new Date();
+                
+                end.setDate(today.getDate() - (parseInt(document.getElementById('periodLength').value)) + 1);
+                var date = end.getFullYear()+'-'+(end.getMonth()+1)+'-'+end.getDate();
+                var vals = date.split('-');
+                var year = vals[0];
+                var month = vals[1];
+                var day = vals[2];
+                if (month < 10){
+                    month = 0+month.toString();
+                }
+                if (day < 10){
+                    day = 0+day.toString();
+                }
+                var date = year +'-'+ month +'-'+ day;
+                var maxEndDate = document.getElementById('start_of_endDate').max = date; 
+                
+                var start = new Date();
+                start.setDate(today.getDate() - 2*(parseInt(document.getElementById('periodLength').value)) + 1);
+                date = start.getFullYear()+'-'+(start.getMonth()+1)+'-'+start.getDate();
+                console.log(start);
+                vals = date.split('-');
+                year = vals[0];
+                month = vals[1];
+                day = vals[2];
+                if (month < 10){
+                    month = 0+month.toString();
+                }
+                if (day < 10){
+                    day = 0+day.toString();
+                }
+                date = year +'-'+ month +'-'+ day;
+                var maxStartDate = document.getElementById('start_of_startDate').max = date;
+                console.log(date);
+            }
+
+            function enable_2nd_calander(){
+                if ((document.getElementById('start_of_startDate').value != '') && (document.getElementById('periodLength').value != 1)){
+                    document.getElementById('start_of_endDate').disabled = false;
+                }
+
+                if (document.getElementById('periodLength').value == 1){
+                    document.getElementById('start_of_endDate').disabled = true;
+                }
+            }
+        </script>
+
         <!-- Custom styles for this template -->
         <link href="cover.css" rel="stylesheet">
         <link href="css/dashboard-v3.css" rel="stylesheet">
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -57,15 +135,16 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     </head>
-    <body class="text-center">
+
+    <body class="text-center" onload="set_max_date(); enable_2nd_calander();">
         <header class="bg-white" style="margin-top: 5px; margin-bottom: 5px;">
-            <a href="https://www.uta.edu" target="_blank"><img id="uta_logo" src="" class="rounded float-left" style="margin-left: 15px;"></a>
-            <a href="http://itlab.uta.edu/index.html" target="_blank"><img id="itlab_logo" src="imgs/itlab-logo-v2.png" class="rounded float-right" style="margin-right: 15px;"></a>
-            <a href="http://itlab.uta.edu/Covid19/dashboard.html"><img id="center" src="imgs/banner-v2.png" class="rounded mx-auto d-block img-height-auto"></a>
+            <a href="https://www.uta.edu" target="_blank"><img id="uta_logo" src="{{ url_for('static', filename='imgs/uta-logo-v2.png') }}" class="rounded float-left" style="margin-left: 15px;"></a>
+            <a href="http://itlab.uta.edu/index.html" target="_blank"><img id="itlab_logo" src="{{ url_for('static', filename='imgs/itlab-logo-v2.png') }}" class="rounded float-right" style="margin-right: 15px;"></a>
+            <a href="{{url_for('index')}}"><img id="center" src="{{ url_for('static', filename='imgs/banner-v2.png') }}" class="rounded mx-auto d-block img-height-auto"></a>
         </header>
         
         <main class="container-fluid" style="width: 100%; font-size:1.2vw">
-			<div class="" style="width:100%; margin-top:-5px">
+			<div class="" style="width:100%; ">
 				
 				<div class="border border-dark text-light container-fluid float-left" style="margin-top: 0; width: 18.5%; height: 2.3vw; border-radius: 0px; background-color:#008DC9;">
 					<p style="margin-top:0.15vw">Cumulative <strong>WHO</strong> Update</p>
@@ -77,29 +156,44 @@
 					<strong> <span id="USCases"></span></strong></span> | <strong><span style="color:red"><span id="USDeaths"></span></span></strong> <em>(As of <span id="lastUpdate"></span> )</em></marquee>
 				</div>
 			</div>
-			<br/>
-
+            <br/>
+            
             <div class="border border-dark bg-secondary container-fluid p-1" style="margin-bottom: 0.7vw; margin-top:1.2vw; width:100%;">
                     <div class="container-fluid" style="width:100%">
-                            <!-- <div id ="us-contiguous" class="btn btn-light" disabled style="width:25%; cursor: default;">
-								<strong>US-Contiguous (3108 Counties)</strong>
-                            </div> -->
 
-                            <form action="" method="" novalidate>
-                                <div class="btn btn-light">
-                                    {{form.periodLength}}
-                                </div>
-                                <div class="btn btn-light">
-                                    {{form.start_of_startDate}}
-                                </div>
-                                <div class="btn btn-light">
-                                    {{form.start_of_endDate}}
-                                </div>
-                                <div class="btn btn-light">
-                                    {{form.interval}}
-                                </div>
-                                {{form.submit}}
+                            <form action = "map" method = "POST" novalidate>
+                                
+                                <select class="btn btn-light {% if check['period'] == 0 %} border-danger {% endif %}" id="periodLength" name="periodLength" size="1" onchange="toBorderDark(id); adjust_min_of_2nd_period(); enable_2nd_calander(); set_max_date();">
+        
+                                    {% for i in intervals %}
+                                    {% if i == 1 %}
+                                    <option value="{{i}}">Select an Interval</option>
+                                    {% else %}
+                                    <option value="{{i}}">{{i}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </select>
+                                <input class="btn btn-light {% if check['startDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_startDate" min="2020-02-01" name="start_of_startDate" onchange="toBorderDark(id); adjust_min_of_2nd_period(); enable_2nd_calander();">
+                                <input class="btn btn-light {% if check['endDate'] == 0 %} border-danger {% endif %}" type="date" id="start_of_endDate" name="start_of_endDate" min="2020-02-01" onchange="toBorderDark(id);" disabled>
+                                <select class="btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1" onchange="toBorderDark(id);">
+        
+                                    {% for i in rates.keys() %}
+                                    {% if rates[i] == -1 %}
+                                    <option value="{{i}}">% Interval</option>
+                                    {% else %}
+                                    <option value="{{i}}">{{rates[i]}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </select>
+                                <input id="submit" class="btn btn-dark" type="submit" value ="Submit">
+                                {% if message %}
+                                <label class="text-danger form-check-label">* {{message}}</label>
+                                {% endif %}
                             </form>
+
+
                     </div> 
             </div>
             
@@ -116,11 +210,8 @@
 
 			<br/>
 
-            
-            <div class="bg-map-img " style="width: 100%; position: relative; margin-bottom: 1vw; margin-top:0.8vw">
-                <img id="over-image" src="dashboard-images/US-Mainland/empty-1.png" style="width:100%; position: absolute;">
-                <img id="over-image-stats" src="dashboard-images/US-Mainland/empty-1.png" style="width:100%; position: absolute;">
-                <img id='map' src="dashboard-images/welcome-1.gif" style="width: 100%;">
+            <div class="embed-responsive embed-responsive-21by9 bg-dark text-center" style="width: 50%; position: relative;">
+                <iframe src="{{ url_for('static', filename='maps/Cases-04-07-20vs04-08-20-intDays7ALL-CommID-Cases-04-07-20vs04-08-20-intDays7.html') }}" width="100%;" class="embed-responsive-item" allowfullscreen></iframe>
             </div>
 			
 			
@@ -146,5 +237,15 @@
 				</div>
 			</div>	
         </main>
+        <hr class="" color="black" style="height: 0px; margin-bottom: 0; margin-top: 0vw;"/>
+        <div class="bg-primary p-2 container-fluid" style="font-size:1.1vw">
+            <p class="float-left text-light"><a href="https://www.linkedin.com/in/abhishek-santra/" target="_blank"  style="color:white">Abhishek Santra</a> | <a href="https://linkedin.com/in/kunalsamant" target="_blank"  style="color:white">Kunal Samant</a> | <a href="https://www.linkedin.com/in/enamul17/" target="_blank"  style="color:white">Enamul Karim</a> | <a href="http://linkedin.com/in/ameet-subedi-135186157" target="_blank"  style="color:white">Ameet Subedi</a> | <a href="http://itlab.uta.edu/index.html" target="_blank"  style="color:white">Sharma Chakravarthy</a> | <a href="mailto:itlab.cse.uta@gmail.com" target="_blank"><img src="dashboard-images/email.png" height=17px></a></p>
+            <p class="float-right text-light">
+			&copy; 2020 The University of Texas at Arlington </p>
+            <br/>
+        </div>
+		<div align="center" hidden="hidden">
+		 <button type="button" name="load_data" id="load_data" hidden="hidden" class="btn btn-info">Load Data</button>
+		</div>
     </body>
 </html>

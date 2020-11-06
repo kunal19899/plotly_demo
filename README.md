@@ -33,4 +33,4 @@ Once you complete these steps your environment will be ready to run the most rec
 
 ## Errors
 
-If there are any additional errors after this setup, there will be basic solutions on stackoverflow or any other similar website.
+If there are any additional errors after this setup, there will be basic solutions on stack-overflow or any other similar website.
