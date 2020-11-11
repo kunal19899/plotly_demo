@@ -195,9 +195,10 @@
                 </div>
                 {% else %}
                 
-                <div id = "articles" class="border border-dark float-right container-fluid scroll" align="left" style="margin-top: 0; width: 81.5%; height: 4.1vw; border-radius: 0px; background-color:#FFF2CC">
+                <div id = "articles" class="border border-dark float-right container-fluid scroll overflow-auto" align="left" style="margin-top: 0; width: 81.5%; height: 4.1vw; border-radius: 0px; background-color:#FFF2CC">
                     {% for highlight in highlights %}
-                    <p style="margin-top:1vw">{{highlight['headline']['main']}}</p>
+                    <p style="margin-top:1vw">{{highlight['headline']['main']}} <b>( {{highlight['pub_date'][0:10]}} )</b> 
+                    <a href="{{highlight['web_url']}}">link</a> </p>
                     {% endfor %}
                 </div>
                 
