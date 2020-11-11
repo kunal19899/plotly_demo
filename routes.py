@@ -91,6 +91,8 @@ def map():
     articles = ArticleSearch(start_of_startDate.date(), start_of_endDate.date())
     highlights = articles.search()
 
+
+
     start_of_startDate_strip = str(start_of_startDate.date()).split('-')
     x = datetime(int(start_of_startDate_strip[0]), int(start_of_startDate_strip[1]), int(start_of_startDate_strip[2]))
     start_of_startDate = x.strftime("%d-%b-%y").upper()
@@ -106,7 +108,6 @@ def map():
     filepath = "maps/Cases-" + start_of_startDate + "vs" + start_of_endDate + "-intDays" + periodLength + "/" + returned_map
         
     check_return_to_default()
-    print(ipt)
     return render_template("index.html", form = inputForm, message = message, intervals=intervals, rates=rates, check=check, filepath=filepath, highlights=highlights, ipt=ipt)
 
 
