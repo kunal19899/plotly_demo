@@ -23,6 +23,10 @@ import os
 # Used to import and run the C++ program to generate CSV files
 import subprocess
 
+# Calculate the elapsed time for each check for a map or csv file
+import timeit
+
+
 class map_test() :
   # Constructor
   def __init__( self, interval, sDate, fDate, rates ) :
@@ -81,10 +85,25 @@ class map_test() :
                 keys[5] + '-' + keys[6] + 
                 '-intDays' + keys[7] )
 
-    # Initialize the mash tables for
-    #   the maps and CSV files
+    # Calculate to generate map hash table
+    start_time = timeit.default_timer()
+
+    # Initialize the hash tables for
+    #   the maps files
     self.mapHash = self.initMapHash()
+
+    # End timer 
+    elapsed = timeit.default_timer() - start_time
+
+    # Calculate to generate map hash table
+    start_time = timeit.default_timer()
+
+    # Initialize the hash tables for
+    #   the CSV files
     csvHash = self.initCSVHash()
+
+    # End timer 
+    elapsed = timeit.default_timer() - start_time
 
     # Check if there is a map for this dataset
     if self.mapHash.get( key ) != None :
@@ -158,21 +177,46 @@ class map_test() :
       #   only takes in int data types
       df.loc[:,'CommunityID'] = int( fName[0] )
 
+    df['text'] = '<b>' + df['Area_Name'] + ', ' + df['State'] + '</b>' + '<br>' + \
+                 'Pop. Density per Square Mile: ' + str(df['DensityPerSquaremileOfLandarea-Population']) + '<br>' + \
+                 'Median Household Income in 2018: ' + str(df['Median_Household_Income_2018']) + '<br>' + \
+                 '% Adults with High School Diplomas: ' + str(df['Percent_of_adults_with_a_high_school_diploma_only_2014-18'])
+
+    text = df['text'].tolist()
+
     # Creates the map object and fills it with 
     #   information
     fig = px.choropleth(df, geojson=counties, locations='FIPS', color='CommunityID',
+                               range_color=[1,7],
                                # color_continuous_scale=px.colors.diverging.RdYlGn[::-1],
-                               color_continuous_scale=px.colors.sequential.OrRd,
-                               range_color=(1, 7),
+                               # color_continuous_scale=px.colors.sequential.OrRd,
+                               #color_continuous_scale=([(0.000, 'rgb(175, 45, 36)'), (0.142,'rgb(175, 45, 36)'), # dark red
+                               #                          (0.142, 'rgb(193, 78, 79)'), (0.285,'rgb(193, 78, 79)'), # light red
+                               #                          (0.285, 'rgb(202, 122, 92)'), (0.428,'rgb(202, 122, 92)'), # nude
+                               #                          (0.428, 'rgb(211, 166, 88)'), (0.571,'rgb(211, 166, 88)'), # mustard
+                               #                          (0.571, 'rgb(183, 192, 85)'), (0.714,'rgb(183, 192, 85)'), # olive 
+                               #                          (0.714, 'rgb(143, 174, 98)'), (0.857,'rgb(143, 174, 98)'), # light green
+                               #                          (0.857, 'rgb(119, 163, 111)'), (1.000,'rgb(119, 163, 111)')]), # green apple
+                               color_continuous_scale=(['rgb(119, 163, 111)', # green apple
+                                                        'rgb(143, 174, 98)', # light green
+                                                        'rgb(183, 192, 85)', # olive
+                                                        'rgb(211, 166, 88)', # mustard
+                                                        'rgb(202, 122, 92)', # nude 
+                                                        'rgb(193, 78, 79)', # light red
+                                                        'rgb(175, 45, 36)']), # dark red
                                scope="usa",
                                labels={'State':'State',
                                        'Area_Name':'County',
                                        'DensityPerSquaremileOfLandarea-Population':'Pop. Density per Square Mile of Land Area',
                                        'Median_Household_Income_2018':'Median Household Income in 2018',
-                                       'Percent_of_adults_with_a_high_school_diploma_only_2014-18':'% Adults with High School Diplomas'}, 
-                               hover_data=["Area_Name", "DensityPerSquaremileOfLandarea-Population", 
-                                             "Median_Household_Income_2018", 
-                                             "Percent_of_adults_with_a_high_school_diploma_only_2014-18"])
+                                       'Percent_of_adults_with_a_high_school_diploma_only_2014-18':'% Adults with High School Diplomas',
+                                       'FIPS':'',
+                                       'CommunityID':''},
+                               hover_data=["Area_Name", 
+                                           "DensityPerSquaremileOfLandarea-Population", 
+                                           "Median_Household_Income_2018", 
+                                           "Percent_of_adults_with_a_high_school_diploma_only_2014-18"])
+                               #hover_data=["text"])
 
     # Fixes and displays the legend to the 
     #   right of the map
