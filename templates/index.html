@@ -335,9 +335,15 @@
                     </div> -->
                 </div>
 
+                {% if filepath %}
                 <div class="embed-responsive embed-responsive-21by9 text-center m-1" style="width: 81.5%; position: relative;">
                     <iframe src="{{ url_for('static', filename=filepath) }}" width="100%;" class="embed-responsive-item" allowfullscreen></iframe>
                 </div>
+                {% else %}
+                <div class="embed-responsive embed-responsive-21by9 text-center m-1" style="width: 81.5%; position: relative;">
+                    <iframe src="https://www.google.com" width="100%;" class="embed-responsive-item" allowfullscreen></iframe>
+                </div>
+                {% endif %}
 
             </div>	
             <br/>
