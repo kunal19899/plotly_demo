@@ -108,16 +108,16 @@ class map_test() :
     # Check if there is a map for this dataset
     if self.mapHash.get( key ) != None :
       #print( "map key: %s does exist" % key )
-      fName = './static/maps/' + subName + '/' + self.mapHash[key]
+      fName = './v2/static/maps/' + subName + '/' + self.mapHash[key]
     else :
       if csvHash.get( key ) == None :
-        subprocess.call(["g++", "-o", "hello", "./maptest/hello.cpp"])
+        subprocess.call(["g++", "-o", "hello", "./v2/maptest/hello.cpp"])
         subprocess.call(["./hello"])
 
         #print( "csv key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the cases CSV files
-      csvPath = os.getcwd() + '/maptest/cases/'+ subName
+      csvPath = os.getcwd() + '/v2/maptest/cases/'+ subName
       
       # Checks if a directory for the CSV data set exists
       # If not, then we create one
@@ -132,7 +132,7 @@ class map_test() :
       #print( "map key: %s doesn't exist" % key )
 
       # Creates a file path for where to store the map html files
-      mapPath = os.getcwd() + '/static/maps/'+ subName
+      mapPath = os.getcwd() + '/v2/static/maps/'+ subName
     
       # Checks if a directory for the map data set exists
       # If not, then we create one
@@ -145,7 +145,7 @@ class map_test() :
       fig = self.generateMap( subName, fName )
 
       # Add key and value to the HTML hash table 
-      with open( './maptest/tables/html_table.txt', 'a' ) as fp :
+      with open( './v2/maptest/tables/html_table.txt', 'a' ) as fp :
         fp.write( key + ',' + fName + '.html\r\n' )
 
       fp.close()
@@ -164,7 +164,7 @@ class map_test() :
     TODO: Create a way to parse a folder from filename
 
     """
-    path = ( './maptest/cases/'+ dirName + 
+    path = ( './v2/maptest/cases/'+ dirName + 
              '/' + fName + '.csv' )
 
     # Reads in the info from our COVID data set
@@ -242,7 +242,7 @@ class map_test() :
     #fig.show()
  
     # Path to the specific directory the file is stored in 
-    nDir  = ( './static/maps/' + dirName + '/' )
+    nDir  = ( './v2/static/maps/' + dirName + '/' )
 
     # Path to where to store the file for the hash table
     nFile = fName + '.html'
@@ -262,11 +262,11 @@ class map_test() :
     csvHash = {}
 
     # Empties out the file before we store new values
-    open( './maptest/tables/csv_table.txt', 'w+' ).close()
+    open( './v2/maptest/tables/csv_table.txt', 'w+' ).close()
 
     # Walks through each subdirectory in /cases/ and
     #   stores the names of the CSVs in csv_table.txt
-    for path, subd, files in os.walk( './maptest/cases/' ) :
+    for path, subd, files in os.walk( './cases/' ) :
       for names in files:
         keys = names.replace( '.', '-' ).split( '-' )
 
@@ -281,12 +281,12 @@ class map_test() :
                   '-' + keys[7] + '-' + keys[-2][7:] )
           
           # Writes the values to csv_table.txt
-          with open( './maptest/tables/csv_table.txt', 'a+' ) as fp :
+          with open( './v2/maptest/tables/csv_table.txt', 'a+' ) as fp :
             fp.write( key + ',' + names + '\r\n' )
           
           fp.close()
 
-    with open( './maptest/tables/csv_table.txt', 'r' ) as fp :
+    with open( './v2/maptest/tables/csv_table.txt', 'r' ) as fp :
       lines = fp.read().replace( '\r', '' ).split( '\n' )
 
     # Checks if the file is not empty
@@ -316,7 +316,7 @@ class map_test() :
     #   home page iframe
     mHash = {}
 
-    with open( './maptest/tables/html_table.txt', 'r' ) as fp :
+    with open( './v2/maptest/tables/html_table.txt', 'r' ) as fp :
       lines = fp.read().replace( '\r', '' ).split( '\n' )
 
     fp.close()
