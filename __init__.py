@@ -1,16 +1,16 @@
 from flask import render_template, Flask, redirect, request, url_for, session, flash
 import requests
-from flask import Flask
-from config import Config
-from forms import InputForm
-from maptest import map_test
+from v2.forms import InputForm
 from datetime import datetime, timedelta
-from article_search import ArticleSearch
-
+from v2.article_search import ArticleSearch
+from flask import Flask
+from v2.config import Config
+from v2.maptest import map_test
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config.from_object(Config)
+
 
 intervals = [1, 3, 5, 7, 10, 14]
 
@@ -37,6 +37,7 @@ check = {
 def index():
     inputForm = InputForm()
     check_return_to_default()
+    print(1)
     return render_template("index.html", form = inputForm, message = '', intervals=intervals, rates=rates, check=check, filepath='', highlights='', ipt='')
 
 @app.route("/map", methods=['GET','POST'])
@@ -123,9 +124,7 @@ def check_return_to_default():
 
 
 # api functions beyond this point
-    
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    
-
+    app.run( debug=True)
