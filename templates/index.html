@@ -291,7 +291,7 @@
                                         <select class="m-2 btn btn-light {% if check['interval'] == 0 %} border-danger {% endif %}" id="interval" name="interval" size="1" onchange="toBorderDark(id);">
                 
                                             {% for i in rates.keys() %}
-                                            {% if rates[i] == -1 %}
+                                            {% if rates[i] == 0 %}
                                             <option value="{{i}}">Severity Rate</option>
                                             {% elif i|int == ipt['interval']|int %}
                                             <option value="{{i}}" selected>{{rates[i]}}</option>
@@ -341,7 +341,7 @@
                 </div>
                 {% else %}
                 <div class="embed-responsive embed-responsive-21by9 text-center m-1" style="width: 81.5%; position: relative;">
-                    <iframe src="https://www.google.com" width="100%;" class="embed-responsive-item" allowfullscreen></iframe>
+                    <iframe src="{{ url_for('static', filename='maps/default.html') }}" width="100%;" class="embed-responsive-item" allowfullscreen></iframe>
                 </div>
                 {% endif %}
 

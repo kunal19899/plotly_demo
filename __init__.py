@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from v2.article_search import ArticleSearch
 from flask import Flask
 from v2.config import Config
-from v2.maptest import map_test
+from v2.map_test import map_test
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,7 +15,7 @@ app.config.from_object(Config)
 intervals = [1, 3, 5, 7, 10, 14]
 
 rates = {
-    -1: -1,
+    0: -1,
     1: 'Big Dip',
     2: 'Downtick',
     3: 'Decrease',
@@ -102,7 +102,7 @@ def map():
     x = datetime(int(start_of_endDate_strip[0]), int(start_of_endDate_strip[1]), int(start_of_endDate_strip[2]))
     start_of_endDate = x.strftime("%d-%b-%y").upper()
     
-    gen_map = map_test.map_test(periodLength, start_of_startDate, start_of_endDate, interval)
+    gen_map = map_test(periodLength, start_of_startDate, start_of_endDate, interval)
     key = gen_map.main()
     maphash = gen_map.get_maphash()
     returned_map = maphash[key]
