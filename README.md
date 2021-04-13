@@ -6,7 +6,7 @@ To start working on this project you will need a clean environment to add and de
 
 1. ### Install virtualenv
     1. pip install virtualenv
-    2. virtualenv myenv <i>(myenv is the name I chose, any name can be given for the environment)</i>. myenv must be installed in the root directory of this project.
+    2. python3 -m venv myenv <i>(myenv is the name I chose, any name can be given for the environment)</i>. myenv must be installed in the root directory of this project.
 2. ### Activating virtual environment
     <b>If on a MAC/Linux:</b>
 
@@ -20,7 +20,7 @@ To start working on this project you will need a clean environment to add and de
 
 3. ### Installing libraries
 
-    pip install requirements.txt
+    pip install -r requirements.txt
 
 Once you complete these steps your environment will be ready to run the most recent updates made to the dashboard by the ITLab visualization team.
 
